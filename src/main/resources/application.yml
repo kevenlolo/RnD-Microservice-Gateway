@@ -1,0 +1,24 @@
+
+### Configurations  ###
+
+## General ##
+server:
+  port: 8080
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+    gateway:
+      routes:
+      - id: user_route
+        uri: lb://user-service
+        predicates:
+        - Path=/users/**
+        filters:
+            - RewritePath=/users/?(?<segment>.*), /$\{segment}
+      discovery:
+        locator:
+          enabled: true
