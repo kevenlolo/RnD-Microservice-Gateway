@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.ReactiveDiscoveryClient;
 import org.springframework.cloud.gateway.discovery.DiscoveryClientRouteDefinitionLocator;
 import org.springframework.cloud.gateway.discovery.DiscoveryLocatorProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -17,7 +18,14 @@ public class GatewayApplication {
 	}
 
 	@Bean
-    public DiscoveryClientRouteDefinitionLocator discoveryClientRouteLocator(ReactiveDiscoveryClient discoveryClient, DiscoveryLocatorProperties dlp) {
-        return new DiscoveryClientRouteDefinitionLocator(discoveryClient, dlp);
-    }
+	public DiscoveryClientRouteDefinitionLocator discoveryClientRouteLocator(ReactiveDiscoveryClient discoveryClient,
+			DiscoveryLocatorProperties dlp) {
+		return new DiscoveryClientRouteDefinitionLocator(discoveryClient, dlp);
+	}
+
+	@Bean
+	public WebClient.Builder webClient() {
+		return WebClient.builder();
+	}
+
 }

@@ -19,6 +19,17 @@ spring:
         - Path=/users/**
         filters:
             - RewritePath=/users/?(?<segment>.*), /$\{segment}
+      - id: auth_route
+        uri: lb://auth-service
+        predicates:
+        - Path=/auth/**
+        filters:
+            - RewritePath=/auth/?(?<segment>.*), /$\{segment}
       discovery:
         locator:
           enabled: true
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6379
